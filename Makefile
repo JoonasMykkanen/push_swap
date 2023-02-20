@@ -17,6 +17,7 @@ FLAGS = -Wall -Werror -Wextra -I $(INCLUDES)
 all: $(NAME)
 
 $(NAME): $(SRC_O)
+	make -C libft
 	cc -c $(SRC)
 	cc $(FLAGS) $(SRC_O) -L libft -lft -o $(NAME)
 

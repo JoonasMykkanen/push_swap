@@ -1,17 +1,17 @@
 
 #include "push_swap.h"
 
-int	ra()
+void	ra(stack *s)
 {
 
 }
 
-int	rb()
+void	rb(stack *s)
 {
 
 }
 
-int	rr()
+void	rr(stack *s)
 {
 
 }

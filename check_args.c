@@ -9,9 +9,9 @@ void	check_duplicates(stack *s)
 
 	i = -1;
 	l = -1;
-	while (++i < s->stack_size)
+	while (++i < s->size_a)
 	{
-		while (++l < s->stack_size)
+		while (++l < s->size_a)
 		{
 			if (s->a[l] == s->a[i] && l != i)
 			{

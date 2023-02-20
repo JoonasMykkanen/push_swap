@@ -6,11 +6,33 @@ typedef struct t_stack
 {
 	int	*a;
 	int	*b;
-	int stack_size;
+	int size_a;
+	int size_b;
 }	stack;
 
 # include "libft/libft.h"
 
+
+
+
+
+void	print_stack(stack *s);
+
+
+
+
+
+void	pa(stack *s);
+void	pb(stack *s);
+void	ra(stack *s);
+void	rb(stack *s);
+void	rr(stack *s);
+void	sa(stack *s);
+void	sb(stack *s);
+void	ss(stack *s);
+void	rra(stack *s);
+void	rrb(stack *s);
+void	rrr(stack *s);
 int		arr_size(char **arr);
 void	check_duplicates(stack *s);
 void	check_args(stack *s, int argc, char **argv);

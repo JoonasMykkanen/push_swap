@@ -25,7 +25,7 @@ static void	create_stack(stack *s, int argc, char **argv)
 			exit(-1);
 		}
 		l = arr_size(arr);
-		s->stack_size = l;
+		s->size_a = l;
 		i = -1;
 		while (arr[++i] != NULL)
 			s->a[--l] = ft_atoi(arr[i]);
@@ -33,7 +33,7 @@ static void	create_stack(stack *s, int argc, char **argv)
 	}
 	else if (argc > 2)
 	{
-		s->stack_size = argc - 1;
+		s->size_a = argc - 1;
 		s->a = ft_calloc(argc - 1, sizeof(int));
 		if (s->a == NULL)
 			exit(-1);
@@ -44,6 +44,11 @@ static void	create_stack(stack *s, int argc, char **argv)
 		while (argc > 1)
 			s->a[++i] = ft_atoi(argv[--argc]);
 	}
+}
+
+static void	init(stack *s)
+{
+	s->size_b = 0;
 }
 
 static void	clean_up(stack *s)
@@ -59,6 +64,16 @@ int	main(int argc, char **argv)
 	check_args(&s, argc, argv);
 	create_stack(&s, argc, argv);
 	check_duplicates(&s);
+	init(&s);
+
+
+	print_stack(&s);
+	pb(&s);
+	print_stack(&s);
+	pa(&s);
+	print_stack(&s);
+
+
 	clean_up(&s);
 	ft_printf("\n");
 	return (0);
