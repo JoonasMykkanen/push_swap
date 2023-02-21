@@ -3,15 +3,14 @@
 
 void	pa(stack *s)
 {
-	int	i;
-
-	i = -1;
 	if (s->size_b > 0)
 	{
 		s->a[s->size_a] = s->b[s->size_b - 1];
 		s->size_a++;
 		s->size_b--;
 	}
+	s->operations++;
+	ft_printf("pa\n");
 }
 
 void	pb(stack *s)
@@ -22,4 +21,6 @@ void	pb(stack *s)
 		s->size_a--;
 		s->size_b++;
 	}
+	s->operations++;
+	ft_printf("pb\n");
 }

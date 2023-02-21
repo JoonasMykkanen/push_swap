@@ -1,6 +1,12 @@
 
 #include "push_swap.h"
 
+void	clean_up(stack *s)
+{
+	free(s->a);
+	free(s->b);
+}
+
 int	arr_size(char **arr)
 {
 	int	i;

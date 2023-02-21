@@ -8,6 +8,7 @@ typedef struct t_stack
 	int	*b;
 	int size_a;
 	int size_b;
+	int	operations;
 }	stack;
 
 # include "libft/libft.h"
@@ -33,7 +34,9 @@ void	ss(stack *s);
 void	rra(stack *s);
 void	rrb(stack *s);
 void	rrr(stack *s);
+void	clean_up(stack *s);
 int		arr_size(char **arr);
+void	sort(stack *s);
 void	check_duplicates(stack *s);
 void	check_args(stack *s, int argc, char **argv);
 
