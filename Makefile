@@ -4,7 +4,8 @@ NAME = push_swap
 
 LIBFT = libft.a	
 
-SRC = main.c rules_p.c rules_r.c rules_rr.c rules_s.c check_args.c tools.c sort.c
+SRC = main.c rules_p.c rules_r.c rules_rr.c rules_s.c check_args.c tools.c\
+sort.c sort_five.c
 
 SRC_O = $(SRC:.c=.o)
 

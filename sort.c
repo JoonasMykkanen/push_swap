@@ -9,31 +9,18 @@ static void	sort_tiny(stack *s)
 	}
 }
 
-static void	sort_small(stack *s)
+void	sort_small(stack *s)
 {
-	if (s->a[1] > s->a[0] && s->a[2] > s->a[1])
-	{
+	if (s->a[2] > s->a[1] && s->a[2] < s->a[0])
 		sa(s);
-		rra(s);
-	}
-	if (s->a[2] < s->a[1] && s->a[1] > s->a[0])
-	{
-		sa(s);
-		ra(s);
-	}
 	if (s->a[2] > s->a[1] && s->a[1] < s->a[0])
-	{
 		ra(s);
-	}
+	if (s->a[1] > s->a[0] && s->a[2] < s->a[1])
+		rra(s);
 	if (s->a[2] > s->a[1])
-	{
 		sa(s);
-	}
-}
-
-static void	sort_medium(stack *s)
-{
-
+	if (s->a[1] > s->a[0] && s->a[2] < s->a[1])
+		rra(s);
 }
 
 void	sort(stack *s)
@@ -44,6 +31,6 @@ void	sort(stack *s)
 		sort_tiny(s);
 	else if (s->size_a == 3)
 		sort_small(s);
-	else if (s->size_a > 3 && s->size_a > 6)
-		sort_medium(s);
+	else if (s->size_a < 6)
+		sort_five(s);
 }
