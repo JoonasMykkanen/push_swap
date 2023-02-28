@@ -8,9 +8,9 @@ void	pa(stack *s)
 		s->a[s->size_a] = s->b[s->size_b - 1];
 		s->size_a++;
 		s->size_b--;
+		s->operations++;
+		ft_printf("pa\n");
 	}
-	s->operations++;
-	ft_printf("pa\n");
 }
 
 void	pb(stack *s)
@@ -20,7 +20,7 @@ void	pb(stack *s)
 		s->b[s->size_b] = s->a[s->size_a - 1];
 		s->size_a--;
 		s->size_b++;
+		s->operations++;
+		ft_printf("pb\n");
 	}
-	s->operations++;
-	ft_printf("pb\n");
 }
