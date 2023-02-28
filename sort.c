@@ -31,6 +31,6 @@ void	sort(stack *s)
 		sort_tiny(s);
 	else if (s->size_a == 3)
 		sort_small(s);
-	else if (s->size_a < 6)
+	else if (s->size_a < 10)
 		sort_five(s);
 }
