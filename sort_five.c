@@ -11,7 +11,7 @@ static	int	find_smallest(stack *s)
 	index = -1;
 	while (++index < s->size_a)
 	{
-		if (s->a[index] < temp)
+		if (s->a[index] <= temp)
 		{
 			temp = s->a[index];
 			ret = index;
@@ -46,10 +46,11 @@ void	sort_five(stack *s)
 	while (s->size_a > 3)
 	{
 		index = find_smallest(s);
+		// ft_printf("BEFORE\n");
+		// print_stack(s);
+		// ft_printf("index: %d \n", index);
 		offset = index;
-		if (offset == 0)
-			pb(s);
-		else if (offset >= s->size_a / 2)
+		if (offset >= s->size_a / 2)
 		{
 			offset = (s->size_a - 1) - index;	
 			while (offset-- > 0)
@@ -58,10 +59,12 @@ void	sort_five(stack *s)
 		}
 		else
 		{
-			while (offset-- > 0)
+			while (offset-- >= 0)
 				rra(s);
 			pb(s);
 		}
+		// ft_printf("AFTER\n");
+		// print_stack(s);
 	}
 	sort_small(s);
 	while (s->size_b > 0)
