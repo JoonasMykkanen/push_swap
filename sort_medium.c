@@ -36,7 +36,7 @@ static int	is_sorted(stack *s)
 	return (0);
 }
 
-void	sort_five(stack *s)
+void	sort_medium(stack *s)
 {
 	int	index;
 	int	offset;

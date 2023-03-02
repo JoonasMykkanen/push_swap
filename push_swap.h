@@ -11,6 +11,13 @@ typedef struct t_stack
 	int	operations;
 }	stack;
 
+typedef struct t_algo_data
+{
+	int	avg_1;
+	int	avg_2;
+	int	size_avg;
+}	algo_data;
+
 # include "libft/libft.h"
 
 
@@ -36,9 +43,10 @@ void	rrb(stack *s);
 void	rrr(stack *s);
 void	sort(stack *s);
 void	clean_up(stack *s);
-void	sort_five(stack *s);
+void	sort_algo(stack *s);
 void	sort_small(stack *s);
 int		arr_size(char **arr);
+void	sort_medium(stack *s);
 void	check_duplicates(stack *s);
 void	check_args(stack *s, int argc, char **argv);
 
