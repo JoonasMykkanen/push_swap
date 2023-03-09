@@ -74,9 +74,9 @@ int	main(int argc, char **argv)
 	create_stack(&s, argc, argv);
 	check_duplicates(&s);
 	init(&s);
-	print_stack(&s);
+	// print_stack(&s);
 	sort(&s);
-	print_stack(&s);
+	// print_stack(&s);
 	clean_up(&s);
 	if (s.operations == 0)
 		ft_printf("\n");

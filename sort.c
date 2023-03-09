@@ -31,8 +31,8 @@ void	sort(stack *s)
 		sort_tiny(s);
 	else if (s->size_a == 3)
 		sort_small(s);
-	// else if (s->size_a < 30)
+	// else if (s->size_a < 101)
 	// 	sort_medium(s);
 	else if (s->size_a > 3)
-		sort_algo(s);
+		onni_sort(s);
 }

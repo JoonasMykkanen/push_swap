@@ -18,6 +18,33 @@ typedef struct t_algo_data
 	int	size_avg;
 }	algo_data;
 
+// offset_a = montako kertaa A pitää siirtää että saadaan B luku oikeaan paikkaan
+// offset_b = montako kertaa B pitää siirtää että saadaan luku B päälimmäiseksi siirtoa A:han varten
+typedef	struct t_moves
+{
+	int		offset_ab;
+	int		offset_a;
+	int		offset_b;
+	int		moves;
+	int		index;
+	int		dir_a;
+	int		dir_b;
+}	moves;
+
+typedef struct t_least
+{
+	int		offset_ab;
+	int		offset_a;
+	int		offset_b;
+	int		index;
+	int		dir_a;
+	int		dir_b;
+}	least;
+
+
+
+
+
 # include "libft/libft.h"
 
 
@@ -43,6 +70,7 @@ void	rrb(stack *s);
 void	rrr(stack *s);
 void	sort(stack *s);
 void	clean_up(stack *s);
+void	onni_sort(stack *s);
 void	sort_algo(stack *s);
 void	sort_small(stack *s);
 int		arr_size(char **arr);
