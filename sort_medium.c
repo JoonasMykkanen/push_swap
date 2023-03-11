@@ -1,25 +1,6 @@
 
 #include "push_swap.h"
 
-static	int	find_smallest(stack *s)
-{
-	int	temp;
-	int	index;
-	int	ret;
-
-	temp = s->a[0];
-	index = -1;
-	while (++index < s->size_a)
-	{
-		if (s->a[index] <= temp)
-		{
-			temp = s->a[index];
-			ret = index;
-		}
-	}
-	return (ret);
-}
-
 static int	is_sorted(stack *s)
 {
 	int	i;

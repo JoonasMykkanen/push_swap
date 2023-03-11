@@ -2,9 +2,118 @@
 
 #include "push_swap.h"
 
+void	fake_ra(stack *s)
+{
+	int	temp;
+	int	i;
+	
+	if (s->size_a > 1)
+	{
+		i = s->size_a;
+		temp = s->a[i - 1];
+		while (i >= 0)
+		{
+			s->a[i + 1] = s->a[i];
+			i--;
+		}
+		s->a[0] = temp;
+	}
+}
+
+void	fake_rra(stack *s)
+{
+	int	i;
+	int	temp;
+
+	i = 0;
+	temp = s->a[0];
+	while (i < s->size_a)
+	{
+		s->a[i] = s->a[i + 1];
+		i++;
+	}
+	s->a[s->size_a - 1] = temp;
+}
+
+static int find_biggest(stack *s)
+{
+	int	temp;
+	int	index;
+	int	ret;
+
+	temp = s->a[0];
+	index = -1;
+	while (++index < s->size_a)
+	{
+		if (s->a[index] >= temp)
+		{
+			temp = s->a[index];
+			ret = index;
+		}
+	}
+	return (ret);
+}
+
+int	find_spot(stack *s, int value)
+{
+	int	delta;
+	int	index;
+	int	smallest;
+	int	spot_holder;
+
+	delta = 0;
+	if (value < s->a[find_smallest(s)])
+	{
+		spot_holder = s->a[find_smallest(s)];
+	}
+	else if (value > s->a[find_biggest(s)])
+	{
+		spot_holder = s->a[find_biggest(s) - 1];
+	}
+	else
+	{
+		smallest = s->a[find_smallest(s)];
+		while (s->a[s->size_a - 1] != smallest)
+		{
+			delta++;
+			fake_ra(s);
+		}
+		index = -1;
+		while (++index < s->size_a)
+		{
+			if (s->a[index] < value)
+			{
+				spot_holder = s->a[index - 1];	
+				break ;
+			}
+		}
+		while (delta-- > 0)
+			fake_rra(s);
+	}
+	index = 0;
+	while (s->a[index] != spot_holder)
+		index++;
+	return (index);
+}
+
 void	calc_moves_a(stack *s, moves *m)
 {
-	
+	int	value;
+	int	index;
+
+	value = s->b[m->index];
+	index = find_spot(s, value);
+	ft_printf("AAA --> index: %d >= threshold: %d\n", index, s->size_a / 2);
+	if (index >= s->size_a / 2)
+	{
+		m->offset_a = (s->size_a - 1) - index;
+		m->dir_a = 1;
+	}
+	else
+	{
+		m->offset_a = index + 1;
+		m->dir_a = 0;
+	}
 }
 
 void	calc_moves_b(stack *s, moves *m)
@@ -22,13 +131,21 @@ void	calc_moves_b(stack *s, moves *m)
 		m->offset_b = m->index + 1;
 		m->dir_b = 0;
 	}
+	ft_printf("BBB --> index: %d >= threshold: %d\n", m->index, s->size_b / 2);
 }
 
 void	calc_together(stack *s, moves *m)
 {
-	if (m->dir_a == m->dir_b)
+	if (m->dir_a == m->dir_b && m->offset_a > 0 && m->offset_b > 0)
 	{
-		if (m->offset_a > m->offset_b)
+		if (m->offset_a == m->offset_b)
+		{
+			m->offset_ab = m->offset_a;
+			m->offset_a = 0;
+			m->offset_b = 0;
+			m->moves = m->offset_ab + 1;
+		}
+		else if (m->offset_a > m->offset_b)
 		{
 			m->offset_ab = m->offset_b;
 			m->offset_b = 0;
@@ -39,12 +156,15 @@ void	calc_together(stack *s, moves *m)
 		{
 			m->offset_ab = m->offset_a;
 			m->offset_a = 0;
-			m->offset_a = m->offset_b - m->offset_a;
+			m->offset_b = m->offset_b - m->offset_a;
 			m->moves = m->offset_ab + m->offset_b + 1;
 		}
 	}
 	else
+	{
 		m->moves = m->offset_a + m->offset_b + 1;
+		m->offset_ab = 0;
+	}
 }
 
 void	least_moves(stack *s, moves *m, least *l)
@@ -68,13 +188,13 @@ void	least_moves(stack *s, moves *m, least *l)
 			l->offset_b = m->offset_b;
 			l->offset_ab = m->offset_ab;
 		}
-		ft_printf("index: %d, a: %d, b: %d\n", m->index, m->offset_a, m->offset_b);
+		ft_printf("index: %d, a: %d, b: %d ab: %d\n", m->index, m->offset_a, m->offset_b, m->offset_ab);
 	}
 }
 
 void	do_moves(stack *s, least l)
-{
-	if (l.dir_a == l.dir_b)
+{	
+	if (l.offset_ab > 0)
 	{
 		while (l.offset_ab-- > 0)
 		{
@@ -93,7 +213,7 @@ void	do_moves(stack *s, least l)
 	}
 	while (l.offset_b-- > 0)
 	{
-		if (l.dir_a == 1)
+		if (l.dir_b == 1)
 			rb(s);
 		else
 			rrb(s);
@@ -104,29 +224,18 @@ void	do_moves(stack *s, least l)
 void	rotate(stack *s)
 {
 	int	index;
-	int	temp;
-	int	ret;
+	int	smallest;
 
-	index = -1;
-	temp = 2147483647;
-	while (++index < s->size_a - 1)
+	index = find_smallest(s);
+	smallest = s->a[find_smallest(s)];
+	if (index >= s->size_a / 2)
 	{
-		if (s->a[index] < temp)
-		{
-			ret = index;
-			temp = s->a[index];
-		}
-	}
-	ft_printf("ret: %d \n", ret);
-	if (ret >= (s->size_a - 1) / 2)
-	{
-		while (ret-- > 0)
+		while (s->a[s->size_a - 1] != smallest)
 			ra(s);
 	}
 	else
 	{
-		ret++;
-		while (ret-- > 0)
+		while (s->a[s->size_a - 1] != smallest)
 			rra(s);
 	}
 }

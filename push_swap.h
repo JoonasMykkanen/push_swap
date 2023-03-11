@@ -75,6 +75,7 @@ void	sort_algo(stack *s);
 void	sort_small(stack *s);
 int		arr_size(char **arr);
 void	sort_medium(stack *s);
+int		find_smallest(stack *s);
 void	check_duplicates(stack *s);
 void	check_args(stack *s, int argc, char **argv);
 

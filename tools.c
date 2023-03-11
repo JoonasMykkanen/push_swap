@@ -17,6 +17,25 @@ int	arr_size(char **arr)
 	return (i);
 }
 
+int	find_smallest(stack *s)
+{
+	int	temp;
+	int	index;
+	int	ret;
+
+	temp = s->a[0];
+	index = -1;
+	while (++index < s->size_a)
+	{
+		if (s->a[index] <= temp)
+		{
+			temp = s->a[index];
+			ret = index;
+		}
+	}
+	return (ret);
+}
+
 void	print_stack(stack *s)
 {
 	int	i;
