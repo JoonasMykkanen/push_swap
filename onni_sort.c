@@ -2,58 +2,6 @@
 
 #include "push_swap.h"
 
-void	fake_ra(stack *s)
-{
-	int	temp;
-	int	i;
-	
-	if (s->size_a > 1)
-	{
-		i = s->size_a;
-		temp = s->a[i - 1];
-		while (i >= 0)
-		{
-			s->a[i + 1] = s->a[i];
-			i--;
-		}
-		s->a[0] = temp;
-	}
-}
-
-void	fake_rra(stack *s)
-{
-	int	i;
-	int	temp;
-
-	i = 0;
-	temp = s->a[0];
-	while (i < s->size_a)
-	{
-		s->a[i] = s->a[i + 1];
-		i++;
-	}
-	s->a[s->size_a - 1] = temp;
-}
-
-static int find_biggest(stack *s)
-{
-	int	temp;
-	int	index;
-	int	ret;
-
-	temp = s->a[0];
-	index = -1;
-	while (++index < s->size_a)
-	{
-		if (s->a[index] >= temp)
-		{
-			temp = s->a[index];
-			ret = index;
-		}
-	}
-	return (ret);
-}
-
 int	find_spot(stack *s, int value)
 {
 	int	delta;
@@ -65,13 +13,20 @@ int	find_spot(stack *s, int value)
 	if (value < s->a[find_smallest(s)])
 	{
 		spot_holder = s->a[find_smallest(s)];
+		ft_printf("checkpoint 1\n");
 	}
 	else if (value > s->a[find_biggest(s)])
 	{
-		spot_holder = s->a[find_biggest(s) - 1];
+		if (find_biggest(s) < 1)
+			spot_holder = s->a[0];
+		else
+			spot_holder = s->a[find_biggest(s) - 1];
+		ft_printf("checkpoint 2\n");
+		// ft_printf("spotholder: %d \n", spot_holder);
 	}
 	else
 	{
+		ft_printf("checkpoint 3\n");
 		smallest = s->a[find_smallest(s)];
 		while (s->a[s->size_a - 1] != smallest)
 		{
@@ -81,9 +36,10 @@ int	find_spot(stack *s, int value)
 		index = -1;
 		while (++index < s->size_a)
 		{
+			ft_printf("a: %d < value: %d \n", s->a[index], value);
 			if (s->a[index] < value)
 			{
-				spot_holder = s->a[index - 1];	
+				spot_holder = s->a[index - 1];
 				break ;
 			}
 		}
@@ -93,6 +49,11 @@ int	find_spot(stack *s, int value)
 	index = 0;
 	while (s->a[index] != spot_holder)
 		index++;
+	// if (index == 0)
+	// {
+
+	// }
+	ft_printf("index from spot: %d \n", index);
 	return (index);
 }
 
@@ -103,8 +64,13 @@ void	calc_moves_a(stack *s, moves *m)
 
 	value = s->b[m->index];
 	index = find_spot(s, value);
-	ft_printf("AAA --> index: %d >= threshold: %d\n", index, s->size_a / 2);
-	if (index >= s->size_a / 2)
+	// ft_printf("AAA --> index: %d >= threshold: %d\n", index, s->size_a / 2);
+	if (index == 0)
+	{
+		m->offset_a = 1;
+		m->dir_a = 0;
+	}
+	else if (index >= s->size_a / 2)
 	{
 		m->offset_a = (s->size_a - 1) - index;
 		m->dir_a = 1;
@@ -131,7 +97,7 @@ void	calc_moves_b(stack *s, moves *m)
 		m->offset_b = m->index + 1;
 		m->dir_b = 0;
 	}
-	ft_printf("BBB --> index: %d >= threshold: %d\n", m->index, s->size_b / 2);
+	// ft_printf("BBB --> index: %d >= threshold: %d\n", m->index, s->size_b / 2);
 }
 
 void	calc_together(stack *s, moves *m)
