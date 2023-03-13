@@ -1,5 +1,4 @@
 
-
 #include "push_swap.h"
 
 int	find_spot(stack *s, int value)
@@ -13,20 +12,13 @@ int	find_spot(stack *s, int value)
 	if (value < s->a[find_smallest(s)])
 	{
 		spot_holder = s->a[find_smallest(s)];
-		ft_printf("checkpoint 1\n");
 	}
 	else if (value > s->a[find_biggest(s)])
 	{
-		if (find_biggest(s) < 1)
-			spot_holder = s->a[0];
-		else
-			spot_holder = s->a[find_biggest(s) - 1];
-		ft_printf("checkpoint 2\n");
-		// ft_printf("spotholder: %d \n", spot_holder);
+		spot_holder = s->a[find_biggest(s) - 1];
 	}
 	else
 	{
-		ft_printf("checkpoint 3\n");
 		smallest = s->a[find_smallest(s)];
 		while (s->a[s->size_a - 1] != smallest)
 		{
@@ -36,24 +28,21 @@ int	find_spot(stack *s, int value)
 		index = -1;
 		while (++index < s->size_a)
 		{
-			ft_printf("a: %d < value: %d \n", s->a[index], value);
+			// ft_printf("a: %d < value: %d \n", s->a[index], value);
 			if (s->a[index] < value)
 			{
-				spot_holder = s->a[index - 1];
+				spot_holder = s->a[index - 1];	
 				break ;
 			}
 		}
 		while (delta-- > 0)
 			fake_rra(s);
 	}
+	// ft_printf("spotholder: %d \n", spot_holder);
 	index = 0;
 	while (s->a[index] != spot_holder)
 		index++;
-	// if (index == 0)
-	// {
-
-	// }
-	ft_printf("index from spot: %d \n", index);
+	// ft_printf("index from spot: %d \n", index);
 	return (index);
 }
 
@@ -65,12 +54,7 @@ void	calc_moves_a(stack *s, moves *m)
 	value = s->b[m->index];
 	index = find_spot(s, value);
 	// ft_printf("AAA --> index: %d >= threshold: %d\n", index, s->size_a / 2);
-	if (index == 0)
-	{
-		m->offset_a = 1;
-		m->dir_a = 0;
-	}
-	else if (index >= s->size_a / 2)
+	if (index >= s->size_a / 2)
 	{
 		m->offset_a = (s->size_a - 1) - index;
 		m->dir_a = 1;
@@ -114,15 +98,15 @@ void	calc_together(stack *s, moves *m)
 		else if (m->offset_a > m->offset_b)
 		{
 			m->offset_ab = m->offset_b;
-			m->offset_b = 0;
 			m->offset_a = m->offset_a - m->offset_b;
+			m->offset_b = 0;
 			m->moves = m->offset_ab + m->offset_a + 1;
 		}
 		else
 		{
 			m->offset_ab = m->offset_a;
-			m->offset_a = 0;
 			m->offset_b = m->offset_b - m->offset_a;
+			m->offset_a = 0;
 			m->moves = m->offset_ab + m->offset_b + 1;
 		}
 	}
@@ -154,7 +138,7 @@ void	least_moves(stack *s, moves *m, least *l)
 			l->offset_b = m->offset_b;
 			l->offset_ab = m->offset_ab;
 		}
-		ft_printf("index: %d, a: %d, b: %d ab: %d\n", m->index, m->offset_a, m->offset_b, m->offset_ab);
+		// ft_printf("index: %d, a: %d, b: %d ab: %d\n", m->index, m->offset_a, m->offset_b, m->offset_ab);
 	}
 }
 
@@ -217,12 +201,12 @@ void	onni_sort(stack *s)
 	sort_small(s);
 	while (s->size_b > 0)
 	{
-		print_stack(s);
+		// print_stack(s);
 		least_moves(s, &m, &l);
-		ft_printf("smallest: %d \n", l.index);
+		// ft_printf("smallest: %d \n", l.index);
 		do_moves(s, l);
 	}
-	print_stack(s);
+	// print_stack(s);
 	rotate(s);
-	print_stack(s);
+	// print_stack(s);
 }
