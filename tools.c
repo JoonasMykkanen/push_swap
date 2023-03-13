@@ -24,6 +24,7 @@ int	find_smallest(stack *s)
 	int	ret;
 
 	temp = s->a[0];
+	ret = 0;
 	index = -1;
 	while (++index < s->size_a)
 	{

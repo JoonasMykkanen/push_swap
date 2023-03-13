@@ -15,12 +15,17 @@ int	find_spot(stack *s, int value)
 	}
 	else if (value > s->a[find_biggest(s)])
 	{
-		spot_holder = s->a[find_biggest(s) - 1];
+		if (find_biggest(s) == 0)
+			spot_holder = s->a[0];
+		else
+		{
+			spot_holder = s->a[find_biggest(s) - 1];
+		}
 	}
 	else
 	{
 		smallest = s->a[find_smallest(s)];
-		while (s->a[s->size_a - 1] != smallest)
+		while (s->a[s->size_a - 1] != smallest && delta < s->size_a)
 		{
 			delta++;
 			fake_ra(s);
@@ -31,7 +36,10 @@ int	find_spot(stack *s, int value)
 			// ft_printf("a: %d < value: %d \n", s->a[index], value);
 			if (s->a[index] < value)
 			{
-				spot_holder = s->a[index - 1];	
+				if (index == 0)
+					spot_holder = s->a[s->size_a - 1];
+				else
+					spot_holder = s->a[index - 1];	
 				break ;
 			}
 		}
@@ -40,7 +48,7 @@ int	find_spot(stack *s, int value)
 	}
 	// ft_printf("spotholder: %d \n", spot_holder);
 	index = 0;
-	while (s->a[index] != spot_holder)
+	while (s->a[index] != spot_holder && index < s->size_a)
 		index++;
 	// ft_printf("index from spot: %d \n", index);
 	return (index);
@@ -54,7 +62,26 @@ void	calc_moves_a(stack *s, moves *m)
 	value = s->b[m->index];
 	index = find_spot(s, value);
 	// ft_printf("AAA --> index: %d >= threshold: %d\n", index, s->size_a / 2);
-	if (index >= s->size_a / 2)
+	// ft_printf("index: %d \n", index);
+	if (index == 0)
+	{
+		if (s->a[0] < s->a[s->size_a - 1])
+		{
+			m->offset_a = 1;
+			m->dir_a = 0;
+		}
+		else if (value > s->a[s->size_a - 1] && value < s->a[0])
+		{
+			m->offset_a = 1;
+			m->dir_a = 0;
+		}
+		else
+		{
+			m->offset_a = 0;
+			m->dir_a = 1;
+		}
+	}
+	else if (index >= s->size_a / 2)
 	{
 		m->offset_a = (s->size_a - 1) - index;
 		m->dir_a = 1;
