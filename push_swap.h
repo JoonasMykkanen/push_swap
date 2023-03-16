@@ -55,6 +55,7 @@ void	rra(stack *s);
 void	rrb(stack *s);
 void	rrr(stack *s);
 void	sort(stack *s);
+void	rotate(stack *s);
 void	fake_ra(stack *s);
 void	fake_rra(stack *s);
 void	clean_up(stack *s);
@@ -63,9 +64,10 @@ void	sort_algo(stack *s);
 void	sort_small(stack *s);
 int		arr_size(char **arr);
 void	sort_medium(stack *s);
+int 	find_biggest(stack *s);
 int		find_smallest(stack *s);
 void	check_duplicates(stack *s);
-int 	find_biggest(stack *s);
+int		find_spot(stack *s, int value);
 void	check_args(stack *s, int argc, char **argv);
 
 #endif

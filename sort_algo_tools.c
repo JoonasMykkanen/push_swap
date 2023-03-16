@@ -54,3 +54,22 @@ int find_biggest(stack *s)
 	}
 	return (ret);
 }
+
+void	rotate(stack *s)
+{
+	int	index;
+	int	smallest;
+
+	index = find_smallest(s);
+	smallest = s->a[find_smallest(s)];
+	if (index >= s->size_a / 2)
+	{
+		while (s->a[s->size_a - 1] != smallest)
+			ra(s);
+	}
+	else
+	{
+		while (s->a[s->size_a - 1] != smallest)
+			rra(s);
+	}
+}

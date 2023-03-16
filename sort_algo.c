@@ -1,167 +1,159 @@
 
+#include "push_swap.h"
 
-// #include "push_swap.h"
+void	calc_moves_a(stack *s, moves *m)
+{
+	int	value;
+	int	index;
 
-// static void	calc_avg(stack *s, algo_data *a)
-// {
-// 	int	sum;
-// 	int	index;
+	value = s->b[m->index];
+	index = find_spot(s, value);
+	if (index == 0)
+	{
+		if (s->a[0] < s->a[s->size_a - 1])
+		{
+			m->offset_a = 1;
+			m->dir_a = 0;
+		}
+		else if (value > s->a[s->size_a - 1] && value < s->a[0])
+		{
+			m->offset_a = 1;
+			m->dir_a = 0;
+		}
+		else
+		{
+			m->offset_a = 0;
+			m->dir_a = 1;
+		}
+	}
+	else if (index >= s->size_a / 2)
+	{
+		m->offset_a = (s->size_a - 1) - index;
+		m->dir_a = 1;
+	}
+	else
+	{
+		m->offset_a = index + 1;
+		m->dir_a = 0;
+	}
+}
 
-// 	sum = 0;
-// 	index = -1;
-// 	a->size_avg = 0;
-// 	while (++index < s->size_a)
-// 	{
-// 		sum = sum + s->a[index];
-// 	}
-// 	a->avg_1 = sum / (s->size_a - 1);
-// 	sum = 0;
-// 	index = -1;
-// 	while (++index < s->size_a)
-// 	{
-// 		if (s->a[index] < a->avg_1)
-// 		{
-// 			sum = sum + s->a[index];
-// 			a->size_avg++;
-// 		}
-// 	}
-// 	a->avg_2 = sum / a->size_avg;
-// }
+void	calc_moves_b(stack *s, moves *m)
+{
+	int	top;
 
-// static	int	find_smallest(stack *s)
-// {
-// 	int	temp;
-// 	int	index;
-// 	int	ret;
+	top = s->size_b - 1;
+	if (m->index >= (s->size_b / 2))
+	{
+		m->offset_b = top - m->index;
+		m->dir_b = 1;
+	}
+	else
+	{
+		m->offset_b = m->index + 1;
+		m->dir_b = 0;
+	}
+}
 
-// 	temp = s->a[0];
-// 	index = -1;
-// 	while (++index < s->size_a)
-// 	{
-// 		if (s->a[index] <= temp)
-// 		{
-// 			temp = s->a[index];
-// 			ret = index;
-// 		}
-// 	}
-// 	return (ret);
-// }
+void	calc_together(stack *s, moves *m)
+{
+	if (m->dir_a == m->dir_b && m->offset_a > 0 && m->offset_b > 0)
+	{
+		if (m->offset_a == m->offset_b)
+		{
+			m->offset_ab = m->offset_a;
+			m->offset_a = 0;
+			m->offset_b = 0;
+			m->moves = m->offset_ab + 1;
+		}
+		else if (m->offset_a > m->offset_b)
+		{
+			m->offset_ab = m->offset_b;
+			m->offset_a = m->offset_a - m->offset_b;
+			m->offset_b = 0;
+			m->moves = m->offset_ab + m->offset_a + 1;
+		}
+		else
+		{
+			m->offset_ab = m->offset_a;
+			m->offset_b = m->offset_b - m->offset_a;
+			m->offset_a = 0;
+			m->moves = m->offset_ab + m->offset_b + 1;
+		}
+	}
+	else
+	{
+		m->moves = m->offset_a + m->offset_b + 1;
+		m->offset_ab = 0;
+	}
+}
 
-// static int find_biggest(stack *s, algo_data *a)
-// {
-// 	int	temp;
-// 	int	index;
-// 	int	ret;
+void	least_moves(stack *s, moves *m, least *l)
+{
+	int		temp;
+	
+	m->index = -1;
+	temp = 2147483647;
+	while (++m->index < s->size_b)
+	{
+		calc_moves_a(s, m);
+		calc_moves_b(s, m);
+		calc_together(s, m);
+		if (m->moves <= temp)
+		{
+			temp = m->moves;
+			l->dir_a = m->dir_a;
+			l->dir_b = m->dir_b;
+			l->index = m->index;
+			l->offset_a = m->offset_a;
+			l->offset_b = m->offset_b;
+			l->offset_ab = m->offset_ab;
+		}
+	}
+}
 
-// 	temp = s->a[0];
-// 	index = -1;
-// 	while (++index < s->size_a)
-// 	{
-// 		if (s->a[index] >= temp)
-// 		{
-// 			temp = s->a[index];
-// 			ret = index;
-// 		}
-// 	}
-// 	return (ret);
-// }
+void	do_moves(stack *s, least l)
+{	
+	if (l.offset_ab > 0)
+	{
+		while (l.offset_ab-- > 0)
+		{
+			if (l.dir_a == 1)
+				rr(s);
+			else
+				rrr(s);
+		}
+	}
+	while (l.offset_a-- > 0)
+	{
+		if (l.dir_a == 1)
+			ra(s);
+		else
+			rra(s);
+	}
+	while (l.offset_b-- > 0)
+	{
+		if (l.dir_b == 1)
+			rb(s);
+		else
+			rrb(s);
+	}
+	pa(s);
+}
 
-// static void	second_half(stack *s, algo_data *a)
-// {
-// 	int index;
-// 	int	offset;
+void	sort_algo(stack *s)
+{
+	moves	m;
+	least	l;
+	int		offset;
 
-// 	while (s->size_a > 0)
-// 	{
-// 		index = find_smallest(s);
-// 		offset = index;
-// 		// ft_printf("index: %d \n", index);
-// 		if (index == 0)
-// 		{
-// 			rra(s);
-// 			pb(s);
-// 		}
-// 		else if (offset >= s->size_a / 2)
-// 		{
-// 			offset = (s->size_a - 1) - index;	
-// 			while (offset-- > 0)
-// 				ra(s);
-// 			pb(s);
-// 		}
-// 		else
-// 		{
-// 			while (offset-- >= 0)
-// 				rra(s);
-// 			pb(s);
-// 		}
-// 		// print_stack(s);
-// 	}
-// }
-
-// static void	first_half(stack *s, algo_data *a)
-// {
-// 	int index;
-// 	int	offset;
-
-// 	while (s->size_b < a->size_avg)
-// 	{
-// 		index = find_biggest(s, a);
-// 		offset = index;
-// 		// ft_printf("index: %d \n", index);
-// 		if (index == 0)
-// 		{
-// 			rra(s);
-// 			pb(s);
-// 		}
-// 		else if (offset >= s->size_a / 2)
-// 		{
-// 			offset = (s->size_a - 1) - index;	
-// 			while (offset-- > 0)
-// 				ra(s);
-// 			pb(s);
-// 		}
-// 		else
-// 		{
-// 			while (offset-- >= 0)
-// 				rra(s);
-// 			pb(s);
-// 		}
-// 		// print_stack(s);
-// 	}
-// }
-
-// static void	push_back(stack *s)
-// {
-// 	int	top;
-// 	int	bot;
-
-// 	while (s->size_b > 0)
-// 	{
-// 		top = s->b[s->size_b - 1];
-// 		bot = s->b[0];
-// 		if (top < bot)
-// 		{
-// 			rrb(s);
-// 			pa(s);
-// 		}	
-// 		else
-// 			pa(s);
-// 		// print_stack(s);
-// 	}
-// }
-
-// void	sort_algo(stack *s)
-// {
-// 	algo_data a;
-
-// 	calc_avg(s, &a);
-// 	// ft_printf("avg1: %d, avg2 %d, size: %d \n", a.avg_1, a.avg_2, a.size_avg);
-// 	// ft_printf("BEFORE \n");
-// 	// print_stack(s);
-// 	first_half(s, &a);
-// 	// ft_printf("second half\n");
-// 	second_half(s, &a);
-// 	push_back(s);
-// 	// ft_printf("AFTER \n");
-// 	// print_stack(s);
-// }
+	while (s->size_a > 3)
+		pb(s);
+	sort_small(s);
+	while (s->size_b > 0)
+	{
+		least_moves(s, &m, &l);
+		do_moves(s, l);
+	}
+	rotate(s);
+}
