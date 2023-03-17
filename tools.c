@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	clean_up(stack *s)
+void	clean_up(t_stack *s)
 {
-	// free(s->a);
-	// free(s->b);
+	free(s->a);
+	free(s->b);
 }
 
 int	arr_size(char **arr)
@@ -17,7 +28,7 @@ int	arr_size(char **arr)
 	return (i);
 }
 
-int	find_smallest(stack *s)
+int	find_smallest(t_stack *s)
 {
 	int	temp;
 	int	index;
@@ -37,34 +48,8 @@ int	find_smallest(stack *s)
 	return (ret);
 }
 
-void	print_stack(stack *s)
+void	init(t_stack *s)
 {
-	int	i;
-	int l;
-	int	printable;
-
-	i = s->size_a;
-	l = s->size_b;
-	if (i > l)
-		printable = i;
-	else
-		printable = l;
-	ft_printf("a:   b:\n");
-	while (printable > 0)
-	{
-		if (i > 0)
-		{
-			ft_printf("%d    ", s->a[i - 1]);
-			i--;
-		}
-		else
-			ft_printf("      ");
-		if (l > 0)
-		{
-			ft_printf("%d", s->b[l - 1]);
-			l--;	
-		}
-		ft_printf("\n");
-		printable--;
-	}
+	s->size_b = 0;
+	s->operations = 0;
 }

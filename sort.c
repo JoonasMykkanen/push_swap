@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	sort_tiny(stack *s)
+static void	sort_tiny(t_stack *s)
 {
 	if (s->a[1] > s->a[0])
 	{
@@ -9,7 +20,7 @@ static void	sort_tiny(stack *s)
 	}
 }
 
-void	sort_small(stack *s)
+void	sort_small(t_stack *s)
 {
 	if (s->a[2] > s->a[1] && s->a[2] < s->a[0])
 		sa(s);
@@ -23,7 +34,7 @@ void	sort_small(stack *s)
 		rra(s);
 }
 
-void	sort(stack *s)
+void	sort(t_stack *s)
 {
 	if (s->size_a == 1)
 		return ;

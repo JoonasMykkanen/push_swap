@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rules_r.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(stack *s)
+void	ra(t_stack *s)
 {
 	int	temp;
 	int	i;
-	
+
 	if (s->size_a > 1)
 	{
 		i = s->size_a;
@@ -21,11 +32,11 @@ void	ra(stack *s)
 	ft_printf("ra\n");
 }
 
-void	rb(stack *s)
+void	rb(t_stack *s)
 {
 	int	temp;
 	int	i;
-	
+
 	if (s->size_b > 1)
 	{
 		i = s->size_b;
@@ -41,11 +52,11 @@ void	rb(stack *s)
 	ft_printf("rb\n");
 }
 
-static void	r_ra(stack *s)
+static void	r_ra(t_stack *s)
 {
 	int	temp;
 	int	i;
-	
+
 	if (s->size_a > 1)
 	{
 		i = s->size_a;
@@ -59,11 +70,11 @@ static void	r_ra(stack *s)
 	}
 }
 
-static void	r_rb(stack *s)
+static void	r_rb(t_stack *s)
 {
 	int	temp;
 	int	i;
-	
+
 	if (s->size_b > 1)
 	{
 		i = s->size_b;
@@ -77,7 +88,7 @@ static void	r_rb(stack *s)
 	}
 }
 
-void	rr(stack *s)
+void	rr(t_stack *s)
 {
 	r_ra(s);
 	r_rb(s);

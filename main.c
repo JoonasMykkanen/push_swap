@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_free(char **garbage)
+void	ft_free(char **garbage)
 {
 	int	i;
 
@@ -14,61 +25,28 @@ static void	ft_free(char **garbage)
 	}
 }
 
-static void	ft_error(char **garbage)
+void	ft_error(char **garbage)
 {
 	ft_free(garbage);
 	ft_putstr_fd("Error", 2);
 	exit(-1);
 }
 
-static void	create_stack(stack *s, int argc, char **argv)
+static void	create_stack(t_stack *s, int argc, char **argv)
 {
-	int		i;
-	int		l;
-	char	**arr;
-
 	if (argc == 2)
 	{
-		arr = ft_split(argv[1], ' ');
-		if (arr == NULL)
-			ft_error(arr);
-		s->a = ft_calloc(arr_size(arr), sizeof(int));
-		if (s->a == NULL)
-			ft_error(arr);
-		s->b = ft_calloc(arr_size(arr), sizeof(int));
-		if (s->b == NULL)
-			ft_error(arr);
-		l = arr_size(arr);
-		s->size_a = l;
-		i = -1;
-		while (arr[++i] != NULL)
-			s->a[--l] = ft_atoi(arr[i]);
-		ft_free(arr);
+		from_string(s, argc, argv);
 	}
 	else if (argc > 2)
 	{
-		s->size_a = argc - 1;
-		s->a = ft_calloc(argc - 1, sizeof(int));
-		if (s->a == NULL)
-			ft_error(arr);
-		s->b = ft_calloc(argc - 1, sizeof(int));
-		if (s->b == NULL)
-			ft_error(arr);
-		i = -1;
-		while (argc > 1)
-			s->a[++i] = ft_atoi(argv[--argc]);
+		from_individual(s, argc, argv);
 	}
-}
-
-static void	init(stack *s)
-{
-	s->size_b = 0;
-	s->operations = 0;
 }
 
 int	main(int argc, char **argv)
 {
-	stack	s;
+	t_stack	s;
 
 	check_args(&s, argc, argv);
 	create_stack(&s, argc, argv);

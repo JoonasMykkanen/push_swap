@@ -35,7 +35,7 @@ int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
 int		ft_isdigit(int c);
-void    dir_check(char *file);
+void	dir_check(char *file);
 char	*ft_strdup(char *src);
 char	*ft_itoa(long long n);
 int		ft_lstsize(t_list *lst);
@@ -72,6 +72,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strnstr(const char *haystack, const char *needle, size_t n);
+char	*ft_strnstr(const char *hayt_stack, const char *needle, size_t n);
 
 #endif

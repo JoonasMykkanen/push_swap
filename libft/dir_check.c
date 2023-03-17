@@ -14,7 +14,7 @@
 
 void	dir_check(char *file)
 {
-	int	fd;
+	int		fd;
 	char	buf[1];
 
 	fd = open(file, O_RDONLY);

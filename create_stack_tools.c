@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rules_s.c                                          :+:      :+:    :+:   */
+/*   create_stack_tools.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,42 +12,43 @@
 
 #include "push_swap.h"
 
-void	sa(t_stack *s)
+void	from_string(t_stack *s, int argc, char **argv)
 {
-	int	top;
-	int	temp;
+	char	**arr;
+	int		i;
+	int		l;
 
-	if (s->size_a > 1)
-	{
-		top = s->size_a - 1;
-		temp = s->a[top - 1];
-		s->a[top - 1] = s->a[top];
-		s->a[top] = temp;
-	}
-	s->operations++;
-	ft_printf("sa\n");
+	arr = ft_split(argv[1], ' ');
+	if (arr == NULL)
+		ft_error(arr);
+	s->a = ft_calloc(arr_size(arr), sizeof(int));
+	if (s->a == NULL)
+		ft_error(arr);
+	s->b = ft_calloc(arr_size(arr), sizeof(int));
+	if (s->b == NULL)
+		ft_error(arr);
+	l = arr_size(arr);
+	s->size_a = l;
+	i = -1;
+	while (arr[++i] != NULL)
+		s->a[--l] = ft_atoi(arr[i]);
+	ft_free(arr);
 }
 
-void	sb(t_stack *s)
+void	from_individual(t_stack *s, int argc, char **argv)
 {
-	int	top;
-	int	temp;
+	char	**arr;
+	int		i;
+	int		l;
 
-	if (s->size_b > 1)
-	{
-		top = s->size_b - 1;
-		temp = s->b[top - 1];
-		s->b[top - 1] = s->b[top];
-		s->b[top] = temp;
-	}
-	s->operations++;
-	ft_printf("sb\n");
-}
-
-void	ss(t_stack *s)
-{
-	sa(s);
-	sb(s);
-	s->operations++;
-	ft_printf("ss\n");
+	s->size_a = argc - 1;
+	s->a = ft_calloc(argc - 1, sizeof(int));
+	if (s->a == NULL)
+		ft_error(arr);
+	s->b = ft_calloc(argc - 1, sizeof(int));
+	if (s->b == NULL)
+		ft_error(arr);
+	i = -1;
+	while (argc > 1)
+		s->a[++i] = ft_atoi(argv[--argc]);
 }

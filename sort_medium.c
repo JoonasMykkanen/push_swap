@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_medium.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	is_sorted(stack *s)
+static int	is_sorted(t_stack *s)
 {
 	int	i;
 	int	temp;
@@ -17,7 +28,7 @@ static int	is_sorted(stack *s)
 	return (0);
 }
 
-void	sort_medium(stack *s)
+static void	sort_b(t_stack *s)
 {
 	int	index;
 	int	offset;
@@ -27,13 +38,10 @@ void	sort_medium(stack *s)
 	while (s->size_a > 3)
 	{
 		index = find_smallest(s);
-		// ft_printf("BEFORE\n");
-		// print_stack(s);
-		// ft_printf("index: %d \n", index);
 		offset = index;
 		if (offset >= s->size_a / 2)
 		{
-			offset = (s->size_a - 1) - index;	
+			offset = (s->size_a - 1) - index;
 			while (offset-- > 0)
 				ra(s);
 			pb(s);
@@ -44,9 +52,12 @@ void	sort_medium(stack *s)
 				rra(s);
 			pb(s);
 		}
-		// ft_printf("AFTER\n");
-		// print_stack(s);
 	}
+}
+
+void	sort_medium(t_stack *s)
+{
+	sort_b(s);
 	sort_small(s);
 	while (s->size_b > 0)
 		pa(s);

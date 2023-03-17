@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_algo.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	calc_moves_b(stack *s, moves *m)
+void	calc_moves_b(t_stack *s, t_moves *m)
 {
 	int	top;
 
@@ -18,10 +29,10 @@ void	calc_moves_b(stack *s, moves *m)
 	}
 }
 
-void	least_moves(stack *s, moves *m, least *l)
+void	least_moves(t_stack *s, t_moves *m, t_least *l)
 {
 	int		temp;
-	
+
 	m->index = -1;
 	temp = 2147483647;
 	while (++m->index < s->size_b)
@@ -29,9 +40,9 @@ void	least_moves(stack *s, moves *m, least *l)
 		calc_moves_a(s, m);
 		calc_moves_b(s, m);
 		calc_together(s, m);
-		if (m->moves <= temp)
+		if (m->t_moves <= temp)
 		{
-			temp = m->moves;
+			temp = m->t_moves;
 			l->dir_a = m->dir_a;
 			l->dir_b = m->dir_b;
 			l->index = m->index;
@@ -42,10 +53,10 @@ void	least_moves(stack *s, moves *m, least *l)
 	}
 }
 
-void	sort_algo(stack *s)
+void	sort_algo(t_stack *s)
 {
-	moves	m;
-	least	l;
+	t_moves	m;
+	t_least	l;
 	int		offset;
 
 	while (s->size_a > 3)

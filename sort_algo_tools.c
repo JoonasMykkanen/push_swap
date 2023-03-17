@@ -1,12 +1,22 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_algo_tools.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	fake_ra(stack *s)
+void	fake_ra(t_stack *s)
 {
 	int	temp;
 	int	i;
-	
+
 	if (s->size_a > 1)
 	{
 		i = s->size_a;
@@ -20,7 +30,7 @@ void	fake_ra(stack *s)
 	}
 }
 
-void	fake_rra(stack *s)
+void	fake_rra(t_stack *s)
 {
 	int	i;
 	int	temp;
@@ -35,7 +45,7 @@ void	fake_rra(stack *s)
 	s->a[s->size_a - 1] = temp;
 }
 
-int find_biggest(stack *s)
+int	find_biggest(t_stack *s)
 {
 	int	temp;
 	int	index;
@@ -55,7 +65,7 @@ int find_biggest(stack *s)
 	return (ret);
 }
 
-void	rotate(stack *s)
+void	rotate(t_stack *s)
 {
 	int	index;
 	int	smallest;

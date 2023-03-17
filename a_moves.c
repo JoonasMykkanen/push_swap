@@ -1,8 +1,18 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   a_t_moves.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	index_zero(stack *s, moves *m, int value)
+static void	index_zero(t_stack *s, t_moves *m, int value)
 {
 	if (s->a[0] < s->a[s->size_a - 1])
 	{
@@ -21,7 +31,7 @@ static void	index_zero(stack *s, moves *m, int value)
 	}
 }
 
-void	calc_moves_a(stack *s, moves *m)
+void	calc_moves_a(t_stack *s, t_moves *m)
 {
 	int	value;
 	int	index;

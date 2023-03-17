@@ -1,11 +1,21 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/29 19:21:39 by jmykkane          #+#    #+#             */
+/*   Updated: 2022/11/29 19:21:40 by jmykkane         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_duplicates(stack *s)
+void	check_duplicates(t_stack *s)
 {
 	int	i;
-	int l;
+	int	l;
 
 	i = -1;
 	l = -1;
@@ -27,7 +37,7 @@ void	check_duplicates(stack *s)
 
 static int	check_each(int argc, char **argv)
 {
-	int 	i;
+	int	i;
 
 	i = -1;
 	while (--argc > 0)
@@ -46,7 +56,7 @@ static int	check_each(int argc, char **argv)
 	return (1);
 }
 
-void	check_args(stack *s, int argc, char **argv)
+void	check_args(t_stack *s, int argc, char **argv)
 {
 	if (argc < 2)
 	{

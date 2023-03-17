@@ -12,14 +12,14 @@
 
 #include "libft.h"
 
-static int	check_match(char *haystack, char *needle, int i, int min)
+static int	check_match(char *hayt_stack, char *needle, int i, int min)
 {
 	int		l;
 
 	l = 0;
 	while (min > 0)
 	{
-		if (haystack[i] != needle[l])
+		if (hayt_stack[i] != needle[l])
 			return (0);
 		else
 		{
@@ -31,7 +31,7 @@ static int	check_match(char *haystack, char *needle, int i, int min)
 	return (1);
 }
 
-char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
+char	*ft_strnstr(const char *hayt_stack, const char *needle, size_t n)
 {
 	int		i;
 	int		min;
@@ -41,16 +41,16 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
 	found = 0;
 	min = ft_strlen((char *)needle);
 	if (needle[0] == '\0')
-		return ((char *)haystack);
-	while (n > 0 && haystack[i] != '\0')
+		return ((char *)hayt_stack);
+	while (n > 0 && hayt_stack[i] != '\0')
 	{	
 		if (min > (int)n)
 			return (NULL);
-		if (haystack[i] == needle[0])
+		if (hayt_stack[i] == needle[0])
 		{
-			found = check_match((char *)haystack, (char *)needle, i, min);
+			found = check_match((char *)hayt_stack, (char *)needle, i, min);
 			if (found == 1)
-				return ((char *)&haystack[i]);
+				return ((char *)&hayt_stack[i]);
 		}
 		i++;
 		n--;
