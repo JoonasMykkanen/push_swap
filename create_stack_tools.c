@@ -14,11 +14,9 @@
 
 static void	ft_exit(t_stack *s, char **arr)
 {
-	{
-		free(s->a);
-		free(s->b);
-		ft_error(arr);	
-	}
+	free(s->a);
+	free(s->b);
+	ft_error(arr);
 }
 
 void	from_string(t_stack *s, int argc, char **argv)
@@ -65,8 +63,7 @@ void	from_individual(t_stack *s, int argc, char **argv)
 	while (argc > 1)
 	{
 		if (fake_atoi(argv[--argc]) == 'f')
-		{
-			
+		{	
 			free(s->a);
 			free(s->b);
 			ft_putstr_fd("Error\n", 2);
