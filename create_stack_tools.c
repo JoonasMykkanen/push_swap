@@ -12,6 +12,15 @@
 
 #include "push_swap.h"
 
+static void	ft_exit(t_stack *s, char **arr)
+{
+	{
+		free(s->a);
+		free(s->b);
+		ft_error(arr);	
+	}
+}
+
 void	from_string(t_stack *s, int argc, char **argv)
 {
 	char	**arr;
@@ -33,11 +42,7 @@ void	from_string(t_stack *s, int argc, char **argv)
 	while (arr[++i] != NULL)
 	{
 		if (fake_atoi(arr[i]) == 'f')
-		{
-			free(s->a);
-			free(s->b);
-			ft_error(arr);
-		}
+			ft_exit(s, arr);
 		s->a[--l] = ft_atoi(arr[i]);
 	}
 	ft_free(arr);
