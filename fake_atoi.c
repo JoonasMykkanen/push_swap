@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_t_moves.c                                     :+:      :+:    :+:   */
+/*   fake_atoi.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmykkane <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,34 +12,39 @@
 
 #include "push_swap.h"
 
-static void	move_ab(t_stack *s, t_least *l)
+static int	ft_overflow(int neg)
 {
-	while (l->offset_ab-- > 0)
-	{
-		if (l->dir_a == 1)
-			rr(s);
-		else
-			rrr(s);
-	}
+	if (neg == 1)
+		return ('f');
+	if (neg == -1)
+		return ('f');
+	return ('f');
 }
 
-void	do_moves(t_stack *s, t_least l)
-{	
-	if (l.offset_ab > 0)
-		move_ab(s, &l);
-	while (l.offset_a-- > 0)
+char	fake_atoi(const char *str)
+{
+	int	i;
+	int	neg;
+	int	sum;
+
+	i = 0;
+	sum = 0;
+	neg = 1;
+	while (((str[i] < 14 && str[i] > 8) || str[i] == ' '))
+		i++;
+	if (str[i] == '-')
 	{
-		if (l.dir_a == 1)
-			ra(s);
-		else
-			rra(s);
+		neg = -1;
+		i++;
 	}
-	while (l.offset_b-- > 0)
+	else if (str[i] == '+')
+		i++;
+	while (str[i] <= '9' && str[i] >= '0')
 	{
-		if (l.dir_b == 1)
-			rb(s);
-		else
-			rrb(s);
+		sum = sum * 10 + (str[i] - '0');
+		if (sum < 0)
+			return (ft_overflow(neg));
+		i++;
 	}
-	pa(s);
+	return ('s');
 }

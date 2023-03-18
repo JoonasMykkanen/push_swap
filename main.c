@@ -28,7 +28,7 @@ void	ft_free(char **garbage)
 void	ft_error(char **garbage)
 {
 	ft_free(garbage);
-	ft_putstr_fd("Error", 2);
+	ft_putstr_fd("Error\n", 2);
 	exit(-1);
 }
 
@@ -54,7 +54,5 @@ int	main(int argc, char **argv)
 	init(&s);
 	sort(&s);
 	clean_up(&s);
-	if (s.operations == 0)
-		ft_printf("\n");
 	return (0);
 }

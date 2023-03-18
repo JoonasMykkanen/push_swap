@@ -31,7 +31,15 @@ void	from_string(t_stack *s, int argc, char **argv)
 	s->size_a = l;
 	i = -1;
 	while (arr[++i] != NULL)
+	{
+		if (fake_atoi(arr[i]) == 'f')
+		{
+			free(s->a);
+			free(s->b);
+			ft_error(arr);
+		}
 		s->a[--l] = ft_atoi(arr[i]);
+	}
 	ft_free(arr);
 }
 
@@ -50,5 +58,15 @@ void	from_individual(t_stack *s, int argc, char **argv)
 		ft_error(arr);
 	i = -1;
 	while (argc > 1)
-		s->a[++i] = ft_atoi(argv[--argc]);
+	{
+		if (fake_atoi(argv[--argc]) == 'f')
+		{
+			
+			free(s->a);
+			free(s->b);
+			ft_putstr_fd("Error\n", 2);
+			exit(-1);
+		}
+		s->a[++i] = ft_atoi(argv[argc]);
+	}
 }

@@ -46,6 +46,8 @@ static int	check_each(int argc, char **argv)
 		{
 			while (argv[argc][i] == ' ')
 				i++;
+			if (argv[argc][i] == '-')
+				i++;
 			if (ft_isdigit(argv[argc][i]) == 0)
 				return (-1);
 		}

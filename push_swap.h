@@ -81,6 +81,7 @@ void	ft_free(char **garbage);
 int		find_biggest(t_stack *s);
 void	ft_error(char **garbage);
 int		find_smallest(t_stack *s);
+char	fake_atoi(const char *str);
 void	check_duplicates(t_stack *s);
 void	do_moves(t_stack *s, t_least l);
 int		find_spot(t_stack *s, int value);

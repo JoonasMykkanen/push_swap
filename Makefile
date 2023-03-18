@@ -6,7 +6,7 @@ LIBFT = libft.a
 
 SRC = main.c rules_p.c rules_r.c rules_rr.c rules_s.c check_args.c tools.c\
 sort.c sort_medium.c sort_algo.c sort_algo_tools.c algo_find_spot.c\
-sort_moves.c calc_moves.c a_moves.c create_stack_tools.c
+sort_moves.c calc_moves.c a_moves.c create_stack_tools.c fake_atoi.c
 
 SRC_O = $(SRC:.c=.o)
 
