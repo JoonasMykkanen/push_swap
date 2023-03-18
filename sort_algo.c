@@ -59,6 +59,8 @@ void	sort_algo(t_stack *s)
 	t_least	l;
 	int		offset;
 
+	if (is_sorted(s) == 0)
+		return ;
 	while (s->size_a > 3)
 		pb(s);
 	sort_small(s);

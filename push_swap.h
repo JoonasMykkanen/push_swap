@@ -75,6 +75,7 @@ void	clean_up(t_stack *s);
 int		arr_size(char **arr);
 void	onni_sort(t_stack *s);
 void	sort_algo(t_stack *s);
+int		is_sorted(t_stack *s);
 void	sort_small(t_stack *s);
 void	sort_medium(t_stack *s);
 void	ft_free(char **garbage);
