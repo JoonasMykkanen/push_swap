@@ -62,7 +62,6 @@ void	check_args(t_stack *s, int argc, char **argv)
 {
 	if (argc < 2)
 	{
-		ft_putstr_fd("Error\n", 2);
 		exit(-1);
 	}
 	if (check_each(argc, argv) < 1)
