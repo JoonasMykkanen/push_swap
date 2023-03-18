@@ -12,20 +12,11 @@
 
 #include "push_swap.h"
 
-static int	ft_overflow(int neg)
-{
-	if (neg == 1)
-		return ('f');
-	if (neg == -1)
-		return ('f');
-	return ('f');
-}
-
 char	fake_atoi(const char *str)
 {
-	int	i;
-	int	neg;
-	int	sum;
+	int			i;
+	int			neg;
+	long long	sum;
 
 	i = 0;
 	sum = 0;
@@ -42,8 +33,8 @@ char	fake_atoi(const char *str)
 	while (str[i] <= '9' && str[i] >= '0')
 	{
 		sum = sum * 10 + (str[i] - '0');
-		if (sum < 0)
-			return (ft_overflow(neg));
+		if ((neg == -1 && sum > 2147483648) || (neg != -1 && sum > 2147483647))
+			return ('f');
 		i++;
 	}
 	return ('s');
